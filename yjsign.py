@@ -6,6 +6,7 @@ def main():
     print('检查是否已登陆')
     if not is_login():
         print('未登陆或cookie已失效')
+        raise Exception('invaild cookie,please update your cookie')
         exit()
     print('已登陆')
 
