@@ -8,7 +8,7 @@ on:
     - cron: '33 0 * * *'
 
 jobs:
-  tieba_sign:
+  yj_sign:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout codes'
