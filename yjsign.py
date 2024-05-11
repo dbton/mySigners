@@ -6,8 +6,7 @@ def main():
     print('检查是否已登陆')
     if not is_login():
         print('未登陆或cookie已失效')
-        #raise Exception('invaild cookie,please update your cookie')
-        check_error()
+        raise Exception('invaild cookie,please update your cookie')
         exit()
     print('已登陆')
 
@@ -34,12 +33,6 @@ def is_login():
     html = etree.HTML(resp.text)
     user_name: list = html.xpath('//*[@id="um"]/div/strong/a/text()')
     return bool(user_name)
-
-def check_error():
-    url = 'https://bbs.pcbeta.com/'
-    resp = requests.get(url,headers=headers,timeout=20)
-    print(f'response_code:{resp.status_code}')
-    print(resp.text)
 
 def do_task_149():
     print('开始执行任务149')
