@@ -39,7 +39,7 @@ def check_error():
     url = 'https://bbs.pcbeta.com/'
     resp = requests.get(url,headers=headers,timeout=20)
     html = etree.HTML(resp.text)
-    print(f'response_code:'{resp.status_code})
+    print(f'response_code:{resp.status_code}')
     print(html)
 
 def do_task_149():
