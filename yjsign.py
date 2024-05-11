@@ -38,9 +38,8 @@ def is_login():
 def check_error():
     url = 'https://bbs.pcbeta.com/'
     resp = requests.get(url,headers=headers,timeout=20)
-    html = etree.HTML(resp.text)
     print(f'response_code:{resp.status_code}')
-    print(html)
+    print(resp.text)
 
 def do_task_149():
     print('开始执行任务149')
