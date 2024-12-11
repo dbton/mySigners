@@ -11,7 +11,7 @@ def main():
     print('已登陆')
 
     task_url = 'https://i.pcbeta.com/home.php?mod=task'
-    resp1 = requests.get(task_url,headers=headers,timeout=20)
+    resp1 = requests.get(task_url,headers=headers,timeout=50)
     html = etree.HTML(resp1.text)
     task_list = html.xpath('//h3[@class="xs2 xi2"]/a/text()')
     if not task_list:
@@ -29,7 +29,7 @@ def main():
 
 def is_login():
     url = 'https://bbs.pcbeta.com/'
-    resp = requests.get(url,headers=headers,timeout=20)
+    resp = requests.get(url,headers=headers,timeout=50)
     html = etree.HTML(resp.text)
     user_name: list = html.xpath('//*[@id="um"]/div/strong/a/text()')
     return bool(user_name)
@@ -38,20 +38,20 @@ def do_task_149():
     print('开始执行任务149')
     time.sleep(2)
     print('申请任务')
-    requests.get('https://i.pcbeta.com/home.php?mod=task&do=apply&id=149',headers=headers,timeout=20)
+    requests.get('https://i.pcbeta.com/home.php?mod=task&do=apply&id=149',headers=headers,timeout=50)
     time.sleep(2)
     print('执行')
-    requests.get('https://i.pcbeta.com/home.php?mod=task&do=draw&id=149',headers=headers,timeout=20)
+    requests.get('https://i.pcbeta.com/home.php?mod=task&do=draw&id=149',headers=headers,timeout=50)
     print('task149执行成功',end=' ')
 
 def do_task_else(id):
     print(f'开始执行任务{id}')
     time.sleep(0.5)
     print('申请任务')
-    requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=apply&id={id}',headers=headers,timeout=20)
+    requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=apply&id={id}',headers=headers,timeout=50)
     time.sleep(0.5)
     print('获取帖子链接')
-    resp2 = requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=view&id={id}',headers=headers,timeout=20)
+    resp2 = requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=view&id={id}',headers=headers,timeout=50)
     html = etree.HTML(resp2.text)
     url = html.xpath('//td[@class="bbda"]/a/@href')[0]
     tid = url.split('-')[1]
@@ -69,9 +69,9 @@ def do_task_else(id):
     }
     print('post_url:',post_url)
     print('回帖')
-    requests.post(post_url,headers=headers,data=body,timeout=20)
+    requests.post(post_url,headers=headers,data=body,timeout=50)
     print('执行')
-    requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=draw&id={id}',headers=headers,timeout=20)
+    requests.get(f'https://i.pcbeta.com/home.php?mod=task&do=draw&id={id}',headers=headers,timeout=50)
     print(f'task{id}执行成功',end=' ')
 
 if __name__ == '__main__':
