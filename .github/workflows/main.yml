@@ -1,0 +1,44 @@
+name: 'My Signer'
+
+on:
+  workflow_dispatch:
+  watch:
+    types: started
+  schedule:
+    - cron: '33 1 * * *'
+
+jobs:
+  pcbeta_sign:
+    name: 'PCBeta Sign Task'
+    runs-on: ubuntu-latest
+
+    env:
+      PYTHON_VERSION: '3.10'
+      DEPENDENCIES: 'requests lxml telepot'
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v2
+
+      - name: 'Setup Python Environment'
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 'Install Dependencies'
+        run: python -m pip install --upgrade ${{ env.DEPENDENCIES }}
+
+      - name: 'Run Sign Script'
+        env:
+          YJ_COOKIE: ${{ secrets.YJ_COOKIE }}
+          YJ_TELEKEY: ${{ secrets.YJ_TELEKEY }}
+          YJ_TELEID: ${{ secrets.YJ_TELEID }}
+        run: python yjsign.py
+        
+      - name: Delete old workflow run
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 5
